@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateObjectiveCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.TopicId;
 import pe.edu.upc.center.edunova.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 
@@ -52,22 +53,22 @@ public class Objective extends AuditableAbstractAggregateRoot<Objective> {
         this.conclusion = conclusion;
     }
 
-    /*Constructor desde CreateOnjectiveCommand
+    //Constructor desde CreateOnjectiveCommand
     public Objective(CreateObjectiveCommand command) {
         this(
-            command.getTopicId(),
-            command.getTitle(),
-            command.getHeader(),
-            command.getMainParagraph(),
-            command.getFooter(),
-            command.getConclusion()
+            command.topicId(),
+            command.title(),
+            command.header(),
+            command.mainParagraph(),
+            command.footer(),
+            command.conclusion()
         );
     }
-    */
+
 
 
     //Método para actualizar los detalles del recurso
-    public void update(String title, String header, String mainParagraph, String footer, String conclusion) {
+    public void updateInformation(String title, String header, String mainParagraph, String footer, String conclusion) {
         this.title = title;
         this.header = header;
         this.mainParagraph = mainParagraph;

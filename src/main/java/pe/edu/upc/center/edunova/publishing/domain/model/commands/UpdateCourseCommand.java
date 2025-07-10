@@ -1,17 +1,16 @@
 package pe.edu.upc.center.edunova.publishing.domain.model.commands;
 
-import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.CourseCategory;
-import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.Difficulty;
-import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.ImageUrl;
-import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.Language;
+import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.*;
 
 import java.math.BigDecimal;
 
 public record UpdateCourseCommand(
+        Long courseId,
         String name,
         String description,
         CourseCategory category,
         BigDecimal price,
+        CreatorId creatorId,
         ImageUrl image,
         Language language,
         Difficulty difficulty

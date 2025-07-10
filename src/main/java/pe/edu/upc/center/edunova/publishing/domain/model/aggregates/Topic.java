@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateTopicCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.CourseId;
 import pe.edu.upc.center.edunova.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 
@@ -50,15 +51,17 @@ public class Topic extends AuditableAbstractAggregateRoot<Topic> {
         this.objectives = objectives;
     }
 
-    /* Constructor desde CreateTopicCommand
+    // Constructor desde CreateTopicCommand
     public Topic(CreateTopicCommand command) {
-        this(command.getTitle(),
-                command.getDescription(),
-                command.getCourseId(),
-                new ArrayList<>()
-                );
+        this(
+                command.title(),
+                command.description(),
+                command.courseId(),
+                new ArrayList<>(), // Lista de recursos
+                new ArrayList<>()  // Lista de objetivos
+        );
     }
-    */
+
 
     // Método para actualizar información básica
     public void update(String title, String description) {

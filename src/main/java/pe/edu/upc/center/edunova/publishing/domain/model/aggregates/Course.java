@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateCourseCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.*;
 import pe.edu.upc.center.edunova.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 
@@ -79,7 +80,7 @@ public class Course extends AuditableAbstractAggregateRoot<Course> {
         this.topics = topics != null ? topics : new ArrayList<>();
     }
 
-    /* Constructor desde CreateCourseCommand
+    // Constructor desde CreateCourseCommand
     public Course(CreateCourseCommand command) {
         this(
                 command.name(),
@@ -93,7 +94,7 @@ public class Course extends AuditableAbstractAggregateRoot<Course> {
                 new ArrayList<>()
         );
     }
-    */
+
 
     // Método para actualizar información básica
     public void updateInformation(String name, String description, CourseCategory category,

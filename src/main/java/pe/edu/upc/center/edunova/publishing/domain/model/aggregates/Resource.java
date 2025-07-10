@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateResourceCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.CourseId;
 import pe.edu.upc.center.edunova.publishing.domain.model.valueobjects.TopicId;
 import pe.edu.upc.center.edunova.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
@@ -40,17 +41,17 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
         this.description = description;
     }
 
-    /*Constructor desde CreateResourceCommand
+    //Constructor desde CreateResourceCommand
 
     public Resource(CreateResourceCommand command) {
         this(
-            command.getTopicId(),
-            command.getYoutubeId(),
-            command.getTitle(),
-            command.getDescription()
+            command.topicId(),
+            command.youtubeId(),
+            command.title(),
+            command.description()
         );
     }
-    */
+
     //Método para actualizar los detalles del recurso
     public void update(String youtubeId, String title, String description) {
         this.youtubeId = youtubeId;
