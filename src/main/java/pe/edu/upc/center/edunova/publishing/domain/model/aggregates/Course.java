@@ -29,7 +29,7 @@ public class Course extends AuditableAbstractAggregateRoot<Course> {
     @Column(nullable = false, length = 1000)
     private String description;
 
-    @NotBlank
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
@@ -48,13 +48,13 @@ public class Course extends AuditableAbstractAggregateRoot<Course> {
     @Column(nullable = false)
     private ImageUrl image;
 
-    @NotBlank
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private Language language;
 
-    @NotBlank
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
