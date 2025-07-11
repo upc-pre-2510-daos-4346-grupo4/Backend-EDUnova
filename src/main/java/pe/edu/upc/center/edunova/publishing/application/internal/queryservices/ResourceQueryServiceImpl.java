@@ -1,6 +1,7 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.queryservices;
 
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Resource;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetAllResourcesQuery;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetResourceByIdQuery;
@@ -10,6 +11,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ResourceQueryServiceImpl implements ResourceQueryService {
     private final ResourceRepository resourceRepository;
 

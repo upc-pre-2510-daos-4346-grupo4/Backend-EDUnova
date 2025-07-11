@@ -1,5 +1,6 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.commandservices;
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Course;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateCourseCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.DeleteCourseCommand;
@@ -9,6 +10,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 
 import java.util.Optional;
 
+@Service
 public class CourseCommandServiceImpl implements CourseCommandService {
     private final CourseRepository courseRepository;
 

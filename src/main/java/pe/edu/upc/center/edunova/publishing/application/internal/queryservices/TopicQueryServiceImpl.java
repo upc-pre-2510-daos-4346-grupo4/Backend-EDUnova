@@ -1,5 +1,6 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.queryservices;
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Topic;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetAllTopicsQuery;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetTopicByIdQuery;
@@ -9,6 +10,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TopicQueryServiceImpl implements TopicQueryService {
     private final TopicRepository topicRepository;
 

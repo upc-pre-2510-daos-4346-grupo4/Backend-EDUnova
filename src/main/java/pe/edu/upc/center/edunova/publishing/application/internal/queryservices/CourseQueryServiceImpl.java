@@ -1,5 +1,6 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.queryservices;
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Course;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetAllCoursesQuery;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetCourseByIdQuery;
@@ -9,6 +10,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CourseQueryServiceImpl implements CourseQueryService {
     private final CourseRepository courseRepository;
 

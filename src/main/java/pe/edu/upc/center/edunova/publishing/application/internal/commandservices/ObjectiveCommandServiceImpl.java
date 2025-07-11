@@ -1,5 +1,6 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.commandservices;
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Objective;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateObjectiveCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.DeleteObjectiveCommand;
@@ -10,7 +11,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repositories.ObjectiveRepository;
 
 import java.util.Optional;
-
+@Service
 public class ObjectiveCommandServiceImpl implements ObjectiveCommandService {
     private final ObjectiveRepository objectiveRepository;
 

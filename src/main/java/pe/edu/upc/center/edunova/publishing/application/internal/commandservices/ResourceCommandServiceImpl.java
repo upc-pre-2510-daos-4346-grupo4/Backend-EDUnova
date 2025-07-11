@@ -1,5 +1,6 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.commandservices;
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Resource;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateResourceCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.DeleteResourceCommand;
@@ -10,7 +11,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repositories.ResourceRepository;
 
 import java.util.Optional;
-
+@Service
 public class ResourceCommandServiceImpl implements ResourceCommandService {
     private final ResourceRepository resourceRepository;
 

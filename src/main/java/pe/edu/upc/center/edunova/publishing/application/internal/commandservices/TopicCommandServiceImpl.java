@@ -1,5 +1,6 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.commandservices;
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Topic;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateTopicCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.DeleteTopicCommand;
@@ -10,7 +11,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repositories.TopicRepository;
 
 import java.util.Optional;
-
+@Service
 public class TopicCommandServiceImpl implements TopicCommandService {
     private final TopicRepository topicRepository;
 

@@ -1,5 +1,6 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.queryservices;
 
+import org.springframework.stereotype.Service;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Objective;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetAllObjectivesQuery;
 import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetObjectiveByIdQuery;
@@ -9,6 +10,7 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ObjectiveQueryServiceImpl implements ObjectiveQueryService {
     private final ObjectiveRepository objectiveRepository;
 
