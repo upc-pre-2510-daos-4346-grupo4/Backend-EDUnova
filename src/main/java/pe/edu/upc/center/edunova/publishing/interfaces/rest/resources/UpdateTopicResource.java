@@ -1,11 +1,11 @@
 package pe.edu.upc.center.edunova.publishing.interfaces.rest.resources;
 
-public record CreateTopicResource(
+public record UpdateTopicResource(
         String title,
         String description,
         Long courseId
 ) {
-    public CreateTopicResource {
+    public UpdateTopicResource {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("El título es obligatorio");
         }

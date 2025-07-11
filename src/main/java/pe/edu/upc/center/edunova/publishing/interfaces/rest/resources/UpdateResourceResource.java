@@ -1,12 +1,11 @@
 package pe.edu.upc.center.edunova.publishing.interfaces.rest.resources;
 
-public record CreateResourceResource(
-        Long topicId,
-        String youtubeId,
-        String title,
-        String description
+public record UpdateResourceResource(Long topicId,
+                                     String youtubeId,
+                                     String title,
+                                     String description
 ) {
-    public CreateResourceResource {
+    public UpdateResourceResource {
         if (topicId == null || topicId <= 0) {
             throw new IllegalArgumentException("El topicId es obligatorio y debe ser positivo");
         }
