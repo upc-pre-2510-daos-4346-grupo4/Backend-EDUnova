@@ -1,6 +1,9 @@
 package pe.edu.upc.center.edunova.publishing.application.internal.commandservices;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pe.edu.upc.center.edunova.publishing.domain.model.aggregates.Course;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.CreateCourseCommand;
 import pe.edu.upc.center.edunova.publishing.domain.model.commands.DeleteCourseCommand;
@@ -11,73 +14,77 @@ import pe.edu.upc.center.edunova.publishing.infrastructure.persistence.jpa.repos
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CourseCommandServiceImpl implements CourseCommandService {
+
     private final CourseRepository courseRepository;
 
-    public CourseCommandServiceImpl(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
     @Override
-    public Long handle(CreateCourseCommand command) {
-        if (this.courseRepository.existsByNameAndCreatorId(command.name(), command.creatorId())) {
-            throw new IllegalArgumentException("Ya existe un curso con el nombre " + command.name() + " y el creatorId proporcionado");
+    @Transactional
+    public Long handle(CreateCourseCommand cmd) {
+
+        if (courseRepository.existsByNameAndCreatorId(cmd.name(), cmd.creatorId())) {
+            throw new IllegalArgumentException(
+                    "Ya existe un curso con el nombre «" + cmd.name() + "» para ese creador.");
         }
-        Course course = new Course(command);
+
+        var course = new Course(cmd);
+
         try {
-            this.courseRepository.save(course);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Error al guardar el curso: " + e.getMessage());
+            courseRepository.save(course);
+            return course.getId();
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("Error al guardar el curso: " +
+                    e.getMostSpecificCause().getMessage(), e);
         }
-        return course.getId();
     }
 
     @Override
-    public Optional<Course> handle(UpdateCourseCommand command) {
-        var courseId = command.courseId();
+    @Transactional
+    public Optional<Course> handle(UpdateCourseCommand cmd) {
 
-        if(!this.courseRepository.existsById(courseId)) {
-            throw new IllegalArgumentException("El curso con id " + courseId + " no existe");
-        }
+        var course = courseRepository.findById(cmd.courseId())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "El curso con id " + cmd.courseId() + " no existe."));
 
-        if (this.courseRepository.existsByNameAndCreatorId(command.name(), command.creatorId())) {
-            Optional<Course> existingCourse = courseRepository.findByNameAndCreatorId(command.name(), command.creatorId());
-            if (existingCourse.isPresent() && !existingCourse.get().getId().equals(command.courseId())) {
-                throw new IllegalArgumentException("Ya existe un curso con el nombre " + command.name() + " y el creatorId proporcionado");
-            }
-        }
+        courseRepository.findByNameAndCreatorId(cmd.name(), cmd.creatorId())
+                .filter(c -> !c.getId().equals(cmd.courseId()))
+                .ifPresent(c -> {
+                    throw new IllegalArgumentException(
+                            "Ya existe otro curso con el nombre «" + cmd.name() + "» para ese creador.");
+                });
 
-        var courseToUpdate = this.courseRepository.findById(courseId).get();
-
-        courseToUpdate.updateInformation(
-                command.name(),
-                command.description(),
-                command.category(),
-                command.price(),
-                command.image(),
-                command.language(),
-                command.difficulty()
+        course.updateInformation(
+                cmd.name(),
+                cmd.description(),
+                cmd.category()      != null ? cmd.category()   : course.getCategory(),
+                cmd.price()         != null ? cmd.price()      : course.getPrice(),
+                cmd.image()         != null ? cmd.image()      : course.getImage(),
+                cmd.language()      != null ? cmd.language()   : course.getLanguage(),
+                cmd.difficulty()    != null ? cmd.difficulty() : course.getDifficulty()
         );
 
         try {
-            var updatedCourse = this.courseRepository.save(courseToUpdate);
-            return Optional.of(updatedCourse);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Error while updating course: " + e.getMessage());
+            return Optional.of(courseRepository.save(course));
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException(
+                    "Error al actualizar curso: " + e.getMostSpecificCause().getMessage(), e);
         }
-
     }
 
     @Override
-    public void handle(DeleteCourseCommand command) {
-        if (!this.courseRepository.existsById(command.courseId())) {
-            throw new IllegalArgumentException("Course with id " + command.courseId() + " does not exist");
-        }
+    @Transactional
+    public void handle(DeleteCourseCommand cmd) {
 
+        if (!courseRepository.existsById(cmd.courseId())) {
+            throw new IllegalArgumentException("El curso con id "
+                    + cmd.courseId() + " no existe.");
+        }
         try {
-            this.courseRepository.deleteById(command.courseId());
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Error while deleting curse: " + e.getMessage());
+            courseRepository.deleteById(cmd.courseId());
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("Error al eliminar curso: "
+                    + e.getMostSpecificCause().getMessage(), e);
         }
     }
-
 }
