@@ -12,6 +12,7 @@ import pe.edu.upc.center.edunova.publishing.domain.model.queries.GetAllCoursesQu
 import pe.edu.upc.center.edunova.publishing.domain.services.CourseCommandService;
 import pe.edu.upc.center.edunova.publishing.domain.services.CourseQueryService;
 import pe.edu.upc.center.edunova.publishing.interfaces.rest.resources.CourseResource;
+import pe.edu.upc.center.edunova.publishing.interfaces.rest.transform.CourseResourceFromEntityAssembler;
 
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class CoursesController {
         this.courseCommandService = courseCommandService;
     }
 
-    /*
+
     @Operation(
             summary = "Get all courses",
             description = "Retrieve a list of all courses",
@@ -55,7 +56,7 @@ public class CoursesController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(resources);
     }
-    */
+
 
 
 }
