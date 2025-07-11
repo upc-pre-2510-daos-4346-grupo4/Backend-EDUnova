@@ -25,6 +25,9 @@ public class CourseQueryServiceImpl implements CourseQueryService {
 
     @Override
     public List<Course> handle(GetAllCoursesQuery query) {
+        if (query.creatorId() != null) {
+            return courseRepository.findByCreatorId_CreatorId(query.creatorId());
+        }
         return courseRepository.findAll();
     }
 }

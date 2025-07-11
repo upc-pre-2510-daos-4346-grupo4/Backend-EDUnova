@@ -39,7 +39,7 @@ public class CoursesController {
 
     @Operation(
             summary = "Get all courses",
-            description = "Retrieve a list of all courses",
+            description = "Retrieve a list of all courses, optionally filtered by creatorId",
             operationId = "getAllCourses",
             responses = {
                     @ApiResponse(
@@ -53,8 +53,11 @@ public class CoursesController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<CourseResource>> getAllCourses() {
-        var query = new GetAllCoursesQuery();
+    public ResponseEntity<List<CourseResource>> getAllCourses(
+            @RequestParam(value = "creatorId", required = false) Long creatorId) {
+        var query = (creatorId != null)
+                ? new GetAllCoursesQuery(creatorId)
+                : new GetAllCoursesQuery();
         var courses = courseQueryService.handle(query);
         var resources = courses.stream()
                 .map(CourseResourceFromEntityAssembler::toResourceFromEntity)
