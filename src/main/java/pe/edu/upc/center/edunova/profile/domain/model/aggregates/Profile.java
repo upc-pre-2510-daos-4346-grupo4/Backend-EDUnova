@@ -1,44 +1,38 @@
 package pe.edu.upc.center.edunova.profile.domain.model.aggregates;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "profiles")
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Profile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    private Long userId;
 
-    @Column(nullable = false)
-    private String firstName;
+    private String name;
 
-    @Column(nullable = false)
-    private String lastName;
+    private String lastname;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    private String gender;
+    private String imageProfile;
 
     private Boolean isPremium;
 
-    private String imageUrl;
+    private LocalDate dateExpiration;
+
+    public enum Gender {
+        male, female
+    }
 }
